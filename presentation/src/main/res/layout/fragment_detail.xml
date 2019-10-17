@@ -17,7 +17,6 @@
         <ImageView android:id="@+id/iv_detail_main_image"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/amiibo_main_image_height"
-                bind:loadImage="@{selectModel.selectModel.image}"
                 android:scaleType="fitCenter"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="0dp" app:layout_constraintStart_toStartOf="parent"
