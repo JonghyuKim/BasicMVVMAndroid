@@ -30,6 +30,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -46,6 +50,7 @@ dependencies {
     implementation deps.androidx_recyclerview
     implementation deps.androidx_ktx_core
     implementation deps.androidx_ktx_fragment
+    implementation deps.androidx_ktx_viewmodel
 
     // ViewModel and LiveData
     implementation deps.lifecycle_and_viewmodel
@@ -54,18 +59,14 @@ dependencies {
     implementation deps.lifecycle_reactivestreams
     testImplementation deps.lifecycle_and_testing
 
-
-    implementation deps.rx_android
-
-    implementation deps.gson
-
     //glide
     implementation deps.glide
     annotationProcessor deps.glide_compiler
 
-    implementation deps.okhttp
-
     implementation deps.kotlin_stdlib
+
+    implementation 'android.arch.navigation:navigation-fragment:1.0.0'
+    implementation 'android.arch.navigation:navigation-ui:1.0.0'
 
     implementation project(":domain")
 }

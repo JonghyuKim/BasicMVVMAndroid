@@ -2,6 +2,7 @@ package com.hyu.basic.mvvm.android
 
 import android.app.Application
 import com.hyu.basic.mvvm.android.di.amiiboModule
+import com.hyu.basic.mvvm.android.di.dataModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -14,7 +15,7 @@ class WebDataViewApplication : Application(){
         startKoin {
             //            androidLogger(Level.DEBUG)
             androidContext(this@WebDataViewApplication)
-            modules( amiiboModule)
+            modules( amiiboModule, dataModule)
         }
     }
 }

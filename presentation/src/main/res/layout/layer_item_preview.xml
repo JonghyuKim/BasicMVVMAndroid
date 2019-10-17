@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:bind="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable name="model" type="com.hyu.basic.mvvm.android.presentation.preview.AmiiboViewModel"/>
+
+        <variable name="selectViewModel" type="com.hyu.basic.mvvm.android.presentation.SelectViewModel"/>
+    </data>
+    <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#ffffff"
+            android:layout_margin="@dimen/preview_item_padding">
+
+        <ImageView
+                android:id="@+id/iv_preview_image"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/preview_main_image_height"
+                bind:loadImage="@{model.model.image}"
+                android:scaleType="fitCenter"
+                android:layout_centerInParent="true"
+                android:onClick="@{(v)->selectViewModel.selectView(v, model.listIndex, model.model) }"/>
+
+        <TextView
+                android:id="@+id/tv_preview_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@{model.model.name}"
+                android:textSize="@dimen/preview_discript_text"
+                android:textColor="#ffffff"
+                android:background="#50000000"
+                android:layout_centerInParent="true"
+                android:gravity="center"/>
+
+
+    </RelativeLayout>
+</layout>

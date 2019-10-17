@@ -39,5 +39,8 @@ dependencies {
     testImplementation deps.test_junit
     testImplementation deps.test_mokito
 
-    implementation deps.kotlin_stdlib
+    api deps.kotlin_stdlib
+    api deps.rx_android
+    api deps.koin
+
 }

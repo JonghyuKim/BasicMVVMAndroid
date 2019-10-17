@@ -25,6 +25,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -35,7 +39,7 @@ dependencies {
     testImplementation deps.test_junit
     testImplementation deps.test_mokito
 
-    implementation deps.coin
+    implementation deps.koin
 
     //Rx baseandroidx.core:core-ktx
     implementation deps.rx_kotlin
