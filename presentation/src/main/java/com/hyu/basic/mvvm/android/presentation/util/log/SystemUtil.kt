@@ -1,8 +1,5 @@
 package com.hyu.basic.mvvm.android.presentation.util.log
 
-import android.util.Log
-
-
 fun whosCallMeNow(deps: Int) {
     val a = Throwable().stackTrace
     val userdeps = if (a.size > deps + 1) deps + 1 else a.size

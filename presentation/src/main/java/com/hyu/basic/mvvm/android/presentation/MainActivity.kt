@@ -44,8 +44,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        if(resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT){
+            if(supportFragmentManager.findFragmentByTag(PreviewFragment.TAG) == null){
+                selectViewModel.unSelect()
+            }
+        }
+    }
+
 
     private fun moveDetail(){
+        if(supportFragmentManager.findFragmentByTag("detail") != null) return
 
         val previousFragment = supportFragmentManager.findFragmentById(R.id.fl_frame_layer)
 
@@ -53,15 +63,11 @@ class MainActivity : AppCompatActivity() {
 
             previousFragment?.sharedElementReturnTransition = TransitionInflater.from(this@MainActivity).inflateTransition(R.transition.transition_detail_fragment)
 
-            previousFragment?.exitTransition = TransitionInflater.from(this@MainActivity).inflateTransition(android.R.transition.fade)
-
             val nextFragment = DetailFragment()
 
             nextFragment.sharedElementEnterTransition = TransitionInflater.from(this@MainActivity).inflateTransition(R.transition.transition_detail_fragment)
 
-            nextFragment.enterTransition = TransitionInflater.from(this@MainActivity).inflateTransition(android.R.transition.fade)
-
-            replace(R.id.fl_frame_layer, nextFragment)
+            replace(R.id.fl_frame_layer, nextFragment, "detail")
                 .setReorderingAllowed(true)
                 .addToBackStack(null)
 

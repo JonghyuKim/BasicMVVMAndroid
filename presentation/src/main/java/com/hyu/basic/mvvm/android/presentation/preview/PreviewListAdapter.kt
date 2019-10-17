@@ -1,36 +1,21 @@
-package com.hyu.basic.mvvm.a
+package com.hyu.basic.mvvm.android.presentation.preview
 
 import android.os.Build
-import com.hyu.basic.mvvm.android.presentation.preview.AmiiboViewModel
 
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.RecyclerView
 import com.hyu.basic.mvvm.android.presentation.SelectViewModel
 import com.hyu.basic.mvvm.android.presentation.base.BaseDiffCallback
 import com.hyu.basic.mvvm.android.presentation.base.BaseListAdapter
 import com.hyu.basic.mvvm.android.presentation.base.BaseViewHolder
 import com.hyu.basicmvvmandroid.presentation.BR
 import com.hyu.basicmvvmandroid.presentation.R
-import com.hyu.basicmvvmandroid.presentation.databinding.LayerItemPreviewBigSizeBinding
-import com.hyu.basicmvvmandroid.presentation.databinding.LayerItemPreviewBinding
 
 
-class PreviewListAdapter(val selectViewModel: SelectViewModel) : BaseListAdapter<AmiiboViewModel>() {
-    override val diffCallBack = PreviewDiffCallback()
-
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): BaseViewHolder<AmiiboViewModel> {
-        return if(viewType == 0) PreviewItemHolder.Base(parent) else PreviewItemHolder.BigSize(parent)
-    }
+class PreviewListAdapter(val selectViewModel: SelectViewModel) : BaseListAdapter<AmiiboViewModel>(PreviewDiffCallback()) {
 
     override fun getItemViewType(position: Int): Int {
-        return position % 2
+        return if(position % 2 == 0) R.layout.layer_item_preview else R.layout.layer_item_preview_big_size
     }
 
     override fun onBindViewHolder(holder: BaseViewHolder<AmiiboViewModel>, position: Int) {
@@ -40,29 +25,10 @@ class PreviewListAdapter(val selectViewModel: SelectViewModel) : BaseListAdapter
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 root.findViewById<View>(R.id.iv_preview_image).transitionName = "previewItem$position"
             }
-        }
-    }
-
-    companion object{
-        @BindingAdapter("preview:setItemList")
-        @JvmStatic
-        fun setItemList(recyclerView : RecyclerView, list : List<AmiiboViewModel>?){
-            val adapter = recyclerView.adapter as? PreviewListAdapter ?: return
-            adapter.itemList = list
+            executePendingBindings()
         }
     }
 }
-
-sealed class PreviewItemHolder{
-    class Base(parent: ViewGroup) : BaseViewHolder<AmiiboViewModel>(
-        LayerItemPreviewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-    )
-
-    class BigSize(parent: ViewGroup) : BaseViewHolder<AmiiboViewModel>(
-        LayerItemPreviewBigSizeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-    )
-}
-
 
 class PreviewDiffCallback : BaseDiffCallback<AmiiboViewModel>() {
 

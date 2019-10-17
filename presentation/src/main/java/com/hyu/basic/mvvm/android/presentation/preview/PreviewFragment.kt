@@ -9,9 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
-import com.hyu.basic.mvvm.a.PreviewListAdapter
 import com.hyu.basic.mvvm.android.presentation.SelectViewModel
-import com.hyu.basic.mvvm.android.presentation.util.log.HLog
 import com.hyu.basicmvvmandroid.presentation.R
 import com.hyu.basicmvvmandroid.presentation.databinding.FragmentPreviewBinding
 
@@ -27,19 +25,19 @@ class PreviewFragment : Fragment(){
     ): View? {
         return DataBindingUtil.inflate<FragmentPreviewBinding>(inflater, R.layout.fragment_preview, container, false).apply {
             recyclerView.apply {
+
                 adapter = PreviewListAdapter(selectViewModel)
-                val preDrawListener = object : ViewTreeObserver.OnPreDrawListener{
+                model = viewModel
+                lifecycleOwner = this@PreviewFragment.viewLifecycleOwner
+
+                viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener{
                     override fun onPreDraw(): Boolean {
                         viewTreeObserver.removeOnPreDrawListener(this)
                         startPostponedEnterTransition()
                         return true
                     }
-                }
-                viewTreeObserver.addOnPreDrawListener(preDrawListener)
+                })
             }
-
-            model = viewModel
-            lifecycleOwner = this@PreviewFragment.viewLifecycleOwner
         }.root
     }
 

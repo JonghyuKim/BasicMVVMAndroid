@@ -16,4 +16,10 @@ class SelectViewModel : ViewModel(){
         selectView.value = view
         selectIndex.value = index
     }
+
+    fun unSelect(){
+        selectIndex.value = -1
+        selectModel.value = AmiiboModel.EmptyModel
+        selectView.value = null
+    }
 }
